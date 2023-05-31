@@ -5,6 +5,20 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 
+/*NOTE:
+ * Classes under the Helper folder(Where this class located) are generated to be used in future projects.
+ * These UI helper classes provide easiness to make UI animations.
+ * This helper folder is exported as a unity package and put under the Homa Case Study Drive folder.
+ * This helper folder could be imported to or directly copied under the script folder of other projects to be used.
+ * In order to use these UI animation helper classes, related classes should be derived from this (UIBaseHelper) class.
+ * 
+ * How To Use:
+ * For example: the panel called panelEndMenu is derived from UIBaseHelper. 
+ * In order to show or hide this panel(panelEndMenu) with animations, UIController class calls the Show() and Hide() methods of panelEndMenu object.
+ * This Show() and Hide() methods takes 3 arguments which are AnimationMode enum(type of the animation like fadein/out, scaleup/down, punch),
+ * AnimationDuration and Ease(DoTween ease types)
+ * This class uses the UIAnimationHelper class to play these animations.
+ */
 /// <summary>
 /// This code block uses UIAnimationHelper class to perform Show, Hide and React animations in different ways.
 /// This helper class could be used for future projects to animate UI.
