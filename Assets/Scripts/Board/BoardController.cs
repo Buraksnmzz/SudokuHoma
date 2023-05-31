@@ -47,7 +47,7 @@ public class BoardController : MonoBehaviour
     {
         for (int boardDataIndex = 0; boardDataIndex < BoardData.levelsActive.GetLength(1); boardDataIndex++)
         {
-            if(BoardData.levelsActive[0, boardDataIndex] == 0)
+            if(BoardData.levelsActive[PlayerPrefs.GetInt("currentLevel"), boardDataIndex] == 0)
             {
                 targetSuccessCount++;
             }
@@ -127,7 +127,7 @@ public class BoardController : MonoBehaviour
         this.gridObjectList = gridObjectList;
         for (int gridObjectListIndex = 0; gridObjectListIndex < gridObjectList.Count; gridObjectListIndex++)
         {
-            gridButtonList[gridObjectListIndex] = gridObjectList[gridObjectListIndex].GetComponent<GridButton>();
+            gridButtonList.Add(gridObjectList[gridObjectListIndex].GetComponent<GridButton>());           
         }
     }
 }
