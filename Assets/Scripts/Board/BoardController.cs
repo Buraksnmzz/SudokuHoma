@@ -81,7 +81,7 @@ public class BoardController : MonoBehaviour
         {
             for (int gridObjectListIndex = 0; gridObjectListIndex < gridObjectList.Count; gridObjectListIndex++)
             {
-                if (gridButton.numberInGrid == gridButtonList[gridObjectListIndex].numberInGrid)
+                if (gridButton.numberInGrid == gridButtonList[gridObjectListIndex].numberInGrid && !gridButtonList[gridObjectListIndex].isWritable)
                 {
                     OnGridSelected?.Invoke(gridObjectList[gridObjectListIndex], true);
                 }
