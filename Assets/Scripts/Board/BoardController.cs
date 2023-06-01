@@ -95,32 +95,36 @@ public class BoardController : MonoBehaviour
     /// </summary>
     void OnNumberButtonClick(int number)
     {
-        if(gridButton.isWritable)
+        if(selectedGrid != null)
         {
-            if (number == gridButton.numberInGrid)
+            if (gridButton.isWritable)
             {
-                OnNumberWritten.Invoke(selectedGrid, true, number);
-                OnNumberWrittenSound?.Invoke(true);
-                OnNumberWrittenParticle?.Invoke(selectedGrid, true);
-                gridButton.isWritable = false;
-                correctMoveCounter++;
-                if(correctMoveCounter == targetSuccessCount)
+                if (number == gridButton.numberInGrid)
                 {
-                    OnLevelFinished?.Invoke();
+                    OnNumberWritten.Invoke(selectedGrid, true, number);
+                    OnNumberWrittenSound?.Invoke(true);
+                    OnNumberWrittenParticle?.Invoke(selectedGrid, true);
+                    gridButton.isWritable = false;
+                    correctMoveCounter++;
+                    if (correctMoveCounter == targetSuccessCount)
+                    {
+                        OnLevelFinished?.Invoke();
+                    }
                 }
-            }
-            else
-            {
-                OnNumberWritten.Invoke(selectedGrid, false, number);
-                OnNumberWrittenSound?.Invoke(false);
-                OnNumberWrittenParticle?.Invoke(selectedGrid, false);
-                wrongMoveCounter++;
-                if (wrongMoveCounter == targetFailCount)
+                else
                 {
-                    OnLevelFailed?.Invoke();
+                    OnNumberWritten.Invoke(selectedGrid, false, number);
+                    OnNumberWrittenSound?.Invoke(false);
+                    OnNumberWrittenParticle?.Invoke(selectedGrid, false);
+                    wrongMoveCounter++;
+                    if (wrongMoveCounter == targetFailCount)
+                    {
+                        OnLevelFailed?.Invoke();
+                    }
                 }
             }
         }
+        
     }
     void OnStoreGridObjectList(List<GameObject> gridObjectList)
     {
