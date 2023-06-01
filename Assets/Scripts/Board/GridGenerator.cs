@@ -16,19 +16,26 @@ public class GridGenerator : MonoBehaviour
     public List<GameObject> gridObjectsList = new List<GameObject>();
     private int rowCount = 9;
     int currentLevel;
+    private void OnEnable()
+    {
+        PuzzleGenerator.OnPuzzleGenerated += GenerateGrid;
+    }
+    private void OnDisable()
+    {
+        PuzzleGenerator.OnPuzzleGenerated -= GenerateGrid;
+    }
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("currentLevel");
-        GenerateGrid();
     }
     void GenerateGrid()
     {
-        for (int columnIndex = 0; columnIndex < 9; columnIndex++)
+        for (int rowIndex = 0; rowIndex < 9; rowIndex++)
         {
-            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+            for (int columnIndex = 0; columnIndex < 9; columnIndex++)
             {
-                GameObject instantiatedGrid = Instantiate(gridObjectPrefab, transform.GetChild(columnIndex));
-                instantiatedGrid.GetComponent<GridButton>().numberInGrid = BoardData.levelsTarget[currentLevel, columnIndex * rowCount + rowIndex];
+                GameObject instantiatedGrid = Instantiate(gridObjectPrefab, transform.GetChild(columnIndex/3 + (rowIndex / 3) * 3 ));
+                instantiatedGrid.GetComponent<GridButton>().numberInGrid = PuzzleGenerator.puzzle[rowIndex, columnIndex];
                 gridObjectsList.Add(instantiatedGrid);
             }
         }
@@ -41,7 +48,7 @@ public class GridGenerator : MonoBehaviour
             for (int rowIndex = 0; rowIndex < 9; rowIndex++)
             {
                 gridText = gridObjectsList[rowIndex + columnIndex * rowCount].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                gridText.text = BoardData.levelsTarget[currentLevel, columnIndex * rowCount + rowIndex].ToString();
+                gridText.text = gridObjectsList[rowIndex + columnIndex * rowCount].GetComponent<GridButton>().numberInGrid.ToString();
                 if (BoardData.levelsActive[currentLevel, columnIndex * rowCount + rowIndex] == 0)
                 {
                     gridText.enabled = false;
